@@ -32,7 +32,7 @@ function drawD3(){
      .attr('y', 00)
      .attr('width', 450)
      .attr('height', 660)
-     .attr('fill', 'green')
+     .attr('fill', '#009900')
 
   // line
   svg.append('rect')
@@ -88,7 +88,7 @@ function drawD3(){
     .attr('cx', function(d, i){return coordinate[d.location].x})
     .attr('cy', function(d){return coordinate[d.location].y})
     .attr('stroke', 'gray')
-    .attr('fill', 'white')
+    .attr('fill', '#0000DD')
     .on('click', function(d){
       // d はクリックした要素のデータ
       console.log(d)
@@ -104,6 +104,7 @@ function drawD3(){
     .attr('x', function(d, i){return coordinate[d.location].x-30})
     .attr('y', function(d){return coordinate[d.location].y})
     .attr('font-size', '0.8em')
+    .attr('fill', 'white')
     .text(function(d){return d.name})
 
 };
