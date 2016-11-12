@@ -10,7 +10,8 @@ $(function(){
 		console.log(plan)
 		count_sec= 0;
 		count_min =0;
-		timerID = setInterval("countup()", 30);
+		timerID = setInterval("countup()", 10);
+
 
 		$("#stopBtn").click(function(e){
 			cntFlg = 0;
@@ -28,7 +29,12 @@ $(function(){
 
 })
 
+function result(){
+	$("#stopBtn").remove();
+	console.log("試合終わり")
+}
 
+//出場中メンバー選定、スコア計算 ※要出場時間値計算
 function solve_point(plan){
 	var playingMem = $.grep(playerData,
 		function(elem, index){
@@ -52,11 +58,17 @@ function solve_point(plan){
 	console.log(sum);
 }
 
+//タイマー
 function countup() {
 	if(cntFlg ==　1){
 		count_sec++;
 		if(count_sec < 60){
 			$("#count_sec").html(("0" + count_sec).slice(-2));
+		}else if(count_min > 88){
+			$("#count_min").html(90);
+			$("#count_sec").html("0" + 0);
+			clearInterval(timerID);
+			result();
 		}else{
 			count_min++
 			count_sec = 0;
@@ -65,7 +77,6 @@ function countup() {
 		}
 	}
 }
-
 
 
 
