@@ -1,0 +1,25 @@
+
+.main{
+  width: 1024px;
+  height: 768px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+}
+
+.right{
+  width: 60%;
+  height: 100%;
+  margin: 0 auto;
+  float: left;
+}
+
+.left{
+  width: 40%;
+  height: 100%;
+  float: left;
+  /*background-color: red;*/
+}
