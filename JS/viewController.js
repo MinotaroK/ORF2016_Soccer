@@ -92,11 +92,16 @@ function drawD3(){
     .on('click', function(d){
       // d はクリックした要素のデータ
       console.log(d)
-      // ここに交代の関数
-      change(d, playerData[15])
-      // 再描画
-      d3.select("svg").remove();
-      drawD3();
+      clkList.push(d);
+      console.log(clkList);
+      if(clkList.length > 1){
+        var firstClk = clkList[0];
+        var secondClk = clkList[1];
+        change(firstClk, secondClk);
+        clkList = [];
+        d3.select("svg").remove();
+        drawD3();
+      }
     });
 
   g.append('text')
@@ -109,6 +114,7 @@ function drawD3(){
 
 };
 
+clkList = [];
 drawD3();
 
 

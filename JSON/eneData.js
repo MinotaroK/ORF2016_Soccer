@@ -1,0 +1,16 @@
+var enemyData = [
+	{"name":"Ander Herrera", "score":"0.45", "position":""},
+	{"name":"Anthony Martial", "score":"0.16", "position":""},
+	{"name":"Antonio Valencia", "score":"0.16", "position":""},
+	{"name":"Chris Smalling", "score":"0.24", "position":""},
+	{"name":"Daley Blind", "score":"0.18", "position":""},
+	{"name":"David de Gea", "score":"0.11", "position":""},
+	{"name":"Jesse Lingard", "score":"0.18", "position":""},
+	{"name":"Juan Mata", "score":"0.12", "position":""},
+	{"name":"Marcus Rashford", "score":"0.11", "position":""},
+	{"name":"Marcos Rojo", "score":"0.14", "position":""},
+	{"name":"Marouane Fellaini", "score":"0.29", "position":""},
+	{"name":"Memphis Depay", "score":"0.38", "position":""},
+	{"name":"Michel Carrick", "score":"0.13", "position":""},
+	{"name":"Wayne Rooney", "score":"0.27", "position":""},
+]
