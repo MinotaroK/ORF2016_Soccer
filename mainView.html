@@ -2,21 +2,36 @@
 <html>
 <head>
 	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="CSS/bootstrap.min.css"></link>
+	<link rel="stylesheet" type="text/css" href="CSS/mainView.css"></link>
 	<script src="SOURCES/jquery-3.1.1.min.js"　type="text/javascript"></script>
 	<script src="SOURCES/d3.min.js"　type="text/javascript"></script>
-	<script src="JS/mainController.js"　type="text/javascript"></script>
 	<script src="JSON/data.js"　type="text/javascript"></script>
+	<script src="JS/mainController.js"　type="text/javascript"></script>
+
+
 </head>
 <body>
-	<select id="select_plan">
-		<option value="select">--- 戦術を選んで下さい ---</option>
-		<option value="1">超リトリート守備/ロングカウンター</option>
-		<option value="2">リトリート＆プレス守備/ロングカウンター</option>
-		<option value="3">プレス守備/バランス</option>
-	</select>
-	<br>
-	<button id="startBtn">試合開始</button>
-	<br>
- 	<span id="count_min">00</span>：<span id="count_sec">00</span>
+	<div class="main">
+		<div class="right">
+			<div id="field"></div>
+		</div>
+
+		<div class="left">
+			<select id="select_plan">
+				<option value="select">--- 戦術を選んで下さい ---</option>
+				<option value="1">超リトリート守備/ロングカウンター</option>
+				<option value="2">リトリート＆プレス守備/ロングカウンター</option>
+				<option value="3">プレス守備/バランス</option>
+			</select>
+			<br>
+			<button id="startBtn">試合開始</button>
+			<br>
+		 	<span id="count_min">00</span>：<span id="count_sec">00</span>
+		</div>
+	</div>
+
 </body>
+<script src="JS/viewController.js"　type="text/javascript"></script>
+
 </html>

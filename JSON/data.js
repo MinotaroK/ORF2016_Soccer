@@ -15,10 +15,10 @@ var playerData = [
 	{"id":"14", "name":"Marcin Wasilewski", "planA":0.18, "planB":0.28, "planC":0.46, "position":"DF", "location":"14"},
 	{"id":"15", "name":"N'Golo Kante", "planA":0.27, "planB":0.26, "planC":0.29, "position":"MF", "location":"15"},
 	{"id":"16", "name":"Nathan Dayer", "planA":0.06, "planB":0.17, "planC":0.16, "position":"MF", "location":"16"},
-	{"id":"17", "name":"Ritchie De Leat", "planA":0.27, "planB":0.18, "planC":0.3, "position":"DF", "location":"17"},
-	{"id":"18", "name":"Riyad Mahrez", "planA":0.17, "planB":0.18, "planC":0.17, "position":"MF", "location":"18"},
-	{"id":"19", "name":"Robert Huth", "planA":0.23, "planB":0.23, "planC":0.22, "position":"DF", "location":"19"},
-	{"id":"20", "name":"Shinji Okazaki", "planA":0.14, "planB":0.14, "planC":0.11, "position":"FW", "location":"20"},
-	{"id":"21", "name":"Wes Morgan", "planA":0.19, "planB":0.22, "planC":0.23, "position":"DF", "location":"21"},
-	{"id":"22", "name":"Yohan Benalouane", "planA":0.19, "planB":0.54, "planC":0.16, "position":"DF", "location":"22"}
+	// {"id":"17", "name":"Ritchie De Leat", "planA":0.27, "planB":0.18, "planC":0.3, "position":"DF", "location":"17"},
+	// {"id":"18", "name":"Riyad Mahrez", "planA":0.17, "planB":0.18, "planC":0.17, "position":"MF", "location":"18"},
+	// {"id":"19", "name":"Robert Huth", "planA":0.23, "planB":0.23, "planC":0.22, "position":"DF", "location":"19"},
+	// {"id":"20", "name":"Shinji Okazaki", "planA":0.14, "planB":0.14, "planC":0.11, "position":"FW", "location":"20"},
+	// {"id":"21", "name":"Wes Morgan", "planA":0.19, "planB":0.22, "planC":0.23, "position":"DF", "location":"21"},
+	// {"id":"22", "name":"Yohan Benalouane", "planA":0.19, "planB":0.54, "planC":0.16, "position":"DF", "location":"22"}
 ];
