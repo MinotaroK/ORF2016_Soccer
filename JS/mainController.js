@@ -8,10 +8,11 @@ $(function(){
 		$("#startBtn").remove();
 		$("#count_sec").after("<br>" + "<button id='stopBtn'>一時停止</button>")
 		console.log(plan)
-		count_sec= 0;
-		count_min =0;
-		timerID = setInterval("countup()", 10);
-
+		count_sec = 0;
+		count_min = 0;
+		time_score = 0;
+		tmp_score = 0;
+		timerID = setInterval(function(){ countup(plan); }, 10);
 
 		$("#stopBtn").click(function(e){
 			cntFlg = 0;
@@ -29,51 +30,45 @@ $(function(){
 
 })
 
-function result(){
+function result(operation){
+	totalscore = 0;
 	$("#stopBtn").remove();
-	console.log("試合終わり")
-}
-
-//出場中メンバー選定、スコア計算 ※要出場時間値計算
-function solve_point(plan){
-	var playingMem = $.grep(playerData,
-		function(elem, index){
-			return (elem.location > 12)
-		})
-	var sum = 0;
-	if(plan == 1){
-		for(i=0; i<playingMem.length; i++){
-			sum += playerData[i]["planA"]
-		}
-	}else if (plan == 2){
-		for(i=0; i<playingMem.length; i++){
-			sum += playerData[i]["planB"]
-		}
-	}else if (plan == 3){
-		for(i=0; i<playingMem.length; i++){
-			sum += playerData[i]["planC"]
-		}
+	for(i=0; i<playerData.length; i++){
+		totalscore += (playerData[i].playtime * playerData[i][operation])
 	}
-
-	console.log(sum);
+	console.log("試合終わり、合計スコアは" + totalscore)
 }
 
 //タイマー
-function countup() {
+function countup(operation) {
 	if(cntFlg ==　1){
+		time_score++;
 		count_sec++;
-		if(count_sec < 60){
-			$("#count_sec").html(("0" + count_sec).slice(-2));
-		}else if(count_min > 88){
+		for(i=0; i<playerData.length; i++){
+		 	if(playerData[i].location < 12){
+		 			playerData[i].playtime += (time_score/60 - playerData[i].playtime);
+		 	}
+		}
+		if(count_min > 89){
 			$("#count_min").html(90);
 			$("#count_sec").html("0" + 0);
 			clearInterval(timerID);
-			result();
+			result(operation);
+		}else if(count_sec < 60){
+			$("#count_sec").html(("0" + count_sec).slice(-2));
 		}else{
 			count_min++
 			count_sec = 0;
 			$("#count_min").html(("0" + count_min).slice(-2));
 			$("#count_sec").html(("0" + count_sec).slice(-2));
+			for(j=1; j<10; j++){
+				if(count_min == (j + "0") && count_sec == 0){
+					for(i=0; i<playerData.length; i++){
+						tmp_score += (playerData[i].playtime * playerData[i][operation])
+					}
+					console.log(j + "0分経過！");
+				}
+			}
 		}
 	}
 }
