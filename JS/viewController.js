@@ -91,13 +91,11 @@ function drawD3(){
     .attr('fill', '#0000DD')
     .on('click', function(d){
       // d はクリックした要素のデータ
-      console.log(d)
       clkList.push(d);
-      console.log(clkList);
       if(clkList.length > 1){
         var firstClk = clkList[0];
         var secondClk = clkList[1];
-        change(firstClk, secondClk);
+        changePlayer(firstClk, secondClk);
         clkList = [];
         d3.select("svg").remove();
         drawD3();
@@ -118,11 +116,16 @@ clkList = [];
 drawD3();
 
 
-// 確認用(一回だけ有効)
-change = function(p1, p2){
+changePlayer = function(p1, p2){
   p1_l = p1.location
   p2_l = p2.location
-  tmp = p1_l
-  playerData[p1_l - 1].location = p2_l
-  playerData[p2_l - 1].location = tmp
+  for(i=0;i<playerData.length;i++){
+    if(playerData[i].name == p1.name){
+      playerData[i].location = p2_l;
+    };
+    if(playerData[i].name == p2.name){
+      playerData[i].location = p1_l;
+    };
+
+  }
 }
