@@ -91,23 +91,25 @@ function drawD3(){
     .attr('fill', '#0000DD')
     .on('click', function(d){
       // d はクリックした要素のデータ
-      $("#changeResult").remove();
-      clkList.push(d);
-      if(clkList.length == 1){
-        console.log("working")
-        $("#letSelect").after("<br>" + "<div id='firstSCT'>選択中" + "<br>" + clkList[0]["name"] + "</div>")
-        $("#firstSCT").after("<br>" + "<div id='letsendSct'>交代先/移動先の選手を選んで下さい</div>")
-      }
-      if(clkList.length > 1){
-        var firstClk = clkList[0];
-        var secondClk = clkList[1];
-        changePlayer(firstClk, secondClk);
-        $("#firstSCT").remove();
-        $("#letsendSct").remove();
-        $("#letSelect").after("<br>" + "<div id='changeResult'>" + clkList[0]["name"] + "と" + clkList[1]["name"] + "が交代しました");
-        clkList = [];
-        d3.select("svg").remove();
-        drawD3();
+      if(cntFlg == 0){
+        $("#changeResult").remove();
+        clkList.push(d);
+        if(clkList.length == 1){
+          console.log("working")
+          $("#letSelect").after("<br>" + "<div id='firstSCT'>選択中" + "<br>" + clkList[0]["name"] + "</div>")
+          $("#firstSCT").after("<br>" + "<div id='letsendSct'>交代先/移動先の選手を選んで下さい</div>")
+        }
+        if(clkList.length > 1){
+          var firstClk = clkList[0];
+          var secondClk = clkList[1];
+          changePlayer(firstClk, secondClk);
+          $("#firstSCT").remove();
+          $("#letsendSct").remove();
+          $("#letSelect").after("<br>" + "<div id='changeResult'>" + clkList[0]["name"] + "と" + clkList[1]["name"] + "が交代しました");
+          clkList = [];
+          d3.select("svg").remove();
+          drawD3();
+        }
       }
     });
 
