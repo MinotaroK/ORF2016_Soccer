@@ -91,7 +91,7 @@ function drawD3(){
     .attr('fill', '#0000DD')
     .on('click', function(d){
       // d はクリックした要素のデータ
-      if(cntFlg == 0){
+      if(cntFlg == 0 || "pre"){
         $("#changeResult").remove();
         clkList.push(d);
         if(clkList.length == 1){

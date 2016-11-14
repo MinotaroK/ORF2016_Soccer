@@ -2,7 +2,7 @@ var playerData = [
 	//{"id":"1", "name":"Andrej Kramaric", "planA":0.24, "planB":0.16, "planC":0.1, "position":"FW", "location":"20", "playtime":0},
 	{"id":"2", "name":"Andy King", "planA":0.19, "planB":0.23, "planC":0.17, "position":"MF", "location":"14", "playtime":0},
 	{"id":"3", "name":"Christian Fuchs", "planA":0.27, "planB":0.24, "planC":0.27, "position":"DF", "location":"10", "playtime":0},
-	{"id":"4", "name":"Daniel Amartey", "planA":0.36, "planB":0.06, "planC":0.11, "position":"DF", "location":"9", "playtime":0},
+	//{"id":"4", "name":"Daniel Amartey", "planA":0.36, "planB":0.06, "planC":0.11, "position":"DF", "location":"9", "playtime":0},
 	{"id":"5", "name":"Daniel Drinkwater", "planA":0.17, "planB":0.19, "planC":0.19, "position":"MF", "location":"5", "playtime":0},
 	{"id":"6", "name":"Danny Simpson", "planA":0.2, "planB":0.23, "planC":0.24, "position":"DF", "location":"7", "playtime":0},
 	{"id":"7", "name":"Demarai Gray", "planA":0.33, "planB":0.3, "planC":0.26, "position":"MF", "location":"12", "playtime":0},

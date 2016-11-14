@@ -1,11 +1,14 @@
 $(function(){
 
 	$("select[id=select_plan]").val("select")
+	cntFlg = "pre";
 
 	$("#startBtn").click(function(e){
 		if($("select[id=select_plan]").val() == "select"){
 			alert("戦術を選んで下さい！")
 		}else{
+			rmdNum = random()
+			console.log(rmdNum)
 			cntFlg = 1;
 			var plan = $("select[id=select_plan]").val();
 			var planName = $("select[id=select_plan] option:selected").text();
@@ -15,15 +18,20 @@ $(function(){
 			$("#count_sec").after("<br>" + "<br>" + "<button id='stopBtn'>一時停止</button>")
 			$("#stopBtn").after("<br>" + "<br>" + "<div id='tmpScore'></div>");
 			$("#tmpScore").after("<br>" + "<br>" + "<div id='eneTmpScore'></div>");
+			$("#eneTmpScore").after("<br>" + "<br>" + "<div id='tmpPoint'></div>");
 			count_sec = 0;
 			count_min = 0;
-			time_score = 0;
+			tmpenePoint = 0;
+			tmpPoint = 0;
+			eneTmp_sum = 0;
+			tmp_sum = 0;
 			timerID = setInterval(function(){ countup(plan); }, 10);
-
 			$("#stopBtn").click(function(e){
 				cntFlg = 0;
 				$("#tmpScore").remove();
 				$("#eneTmpScore").remove();
+				$("#chart").remove();
+				$("#tmpPoint").remove();
 				$("#stopBtn").after("<br>" + "<button id='reStartBtn'>再開</button>")
 				$("#stopBtn").hide();
 				$("#reStartBtn").after("<br>" + "<br>" + "<div id='letSelect'>選手交代/ポジションチェンジ")
@@ -36,10 +44,15 @@ $(function(){
 					$("#letSelect").remove();
 					$("#reStartBtn").remove();
 					$("#letSelect").remove();
+					$("#tmpScore").remove();
+					$("#eneTmpScore").remove();
 					$("#stopBtn").show();
 					$("#stopBtn").after("<br>" + "<br>" + "<div id='tmpScore'></div>");
 					$("#tmpScore").after("<br>" + "<br>" + "<div id='eneTmpScore'></div>")
+					$("#eneTmpScore").after("<br>" + "<br>" + "<div id='tmpPoint'></div>");
 					clkList = [];
+					$("#eneTmpScore").after("<br>" + "<div id='chart'></div>")
+					// drawGraph(tmp_score, eneTmp_score)
 				})
 
 			})
@@ -57,25 +70,14 @@ function result(operation){
 				return (elem.plan == operation)
 			})
 	console.log(numOpe[0]["Leicester"])
-	for(i=0; i<playerData.length; i++){
-		totalscore += ((playerData[i].playtime/60) * playerData[i][operation])
-	}
-	for(i=0; i<enemyData.length; i++){
-		eneTotalscore += ((enemyData[i].playtime/60) * enemyData[i].score)
-	}
+
 
 	totalscore = totalscore*(numOpe[0]["Leicester"])
 	eneTotalscore = eneTotalscore*(numOpe[0]["Manchester"])
 	$("#tmpScore").remove();
 	$("#eneTmpScore").remove();
-
-	$("#count_sec").after("<br>" + "<br>" + "<div id='finalScore'>味方合計スコア：" + totalscore + "</div>")
-	$("#finalScore").after("<br>" + "<br>" + "<div id='eneFinalScore'>敵合計スコア：" + eneTotalscore + "</div>")
-
-	Point = Math.floor(totalscore/59.58)
-	enePoint = Math.floor(eneTotalscore/67.56)
-
-	$("#eneFinalScore").after("<br>" + "<div id='point'>" + Point + "：" + enePoint + "</div>")
+	$("#count_sec").after("<br>" + "<div id='point'>" + tmpPoint + "：" + tmpenePoint + "</div>")
+	$("#tmpPoint").remove();
 }
 
 //タイマー
@@ -95,7 +97,7 @@ function countup(operation) {
 		 	}
 		}
 		//タイマー処理
-		if(count_min > 89){
+		if(count_min > 90){
 			$("#count_min").html(90);
 			$("#count_sec").html("0" + 0);
 			clearInterval(timerID);
@@ -113,17 +115,67 @@ function countup(operation) {
 					tmp_score = 0;
 					for(i=0; i<playerData.length; i++){
 						tmp_score += ((playerData[i].playtime/60) * playerData[i][operation])
-						$("#tmpScore").html(j + "0分経過、現在の合計スコアは" + tmp_score);
 					}
-					console.log(j + "0分経過！現在のスコアは" + tmp_score);
+					console.log("味方のスコアは" + tmp_score);
+					solveScore(operation, tmp_score, "Leicester", 59.58, tmp_sum)
+					for(i=0; i<enemyData.length; i++){
+					 	playerData[i].playtime = 0;
+					}
+					var numOpe = $.grep(scoreSet,
+					function(elem, index){
+						return (elem.plan == operation)
+					})
+					tmp_sum += (tmp_score*(numOpe[0]["Leicester"]))
+					tmpPoint = Math.floor(tmp_sum/59.58)
+					$("#tmpScore").html(j + "0分経過、現在の合計スコアは" + tmp_sum);
 				}
 			}
 		}
-		enemyAttack(time_score, count_min, count_sec)
+		enemyAttack(count_min, count_sec, operation);
+
+		$("#tmpPoint").html(tmpPoint + " - " + tmpenePoint)
+
+		// for(j=1; j<10; j++){
+		// 	if(count_min == (j + "0") && count_sec == 0){
+		// 		drawGraph(tmp_sum, eneTmp_sum)
+		// 		console.log(tmp_sum)
+		// 		console.log(eneTmp_sum)
+		// 	}
+		// }
 	}
 }
 
-function enemyAttack(time_score, count_min, count_sec){
+// function drawGraph(data1, data2){
+// 	var chart = c3.generate({
+// 						bindto: '#chart',
+// 					    data: {
+// 					        columns: [
+// 					            ["Leicester", 50],
+// 					            ["Manchester", 50],
+// 					        ],
+// 					        type : 'donut'
+// 					    },
+// 					    donut: {
+// 					        title: "勝負の勢い"
+// 					    }
+// 					});
+// 	chart.destroy();
+// 	var chart = c3.generate({
+// 						bindto: '#chart',
+// 					    data: {
+// 					        columns: [
+// 					            ["Leicester", Math.round(data1)],
+// 					            ["Manchester", Math.round(data1)],
+// 					        ],
+// 					        type : 'donut'
+// 					    },
+// 					    donut: {
+// 					        title: "勝負の勢い"
+// 					    }
+// 					});
+// }
+
+function enemyAttack(count_min, count_sec, operation){
 	//交代処理
 	if(count_min == 61 && count_sec == 0){
 		filed_p = enemyData[6]["location"]
@@ -146,21 +198,44 @@ function enemyAttack(time_score, count_min, count_sec){
 	}
 	//出場時間監視
 	for(i=0; i<enemyData.length; i++){
-		 	if(enemyData[i].location < 12){
-		 		enemyData[i].playtime++;
-		 	}
-		}
+	 	if(enemyData[i].location < 12){
+	 		enemyData[i].playtime++;
+	 	}
+	}
 	//10分ごとのスコア計算
-	if(count_min < 90){
-		for(j=1; j<9; j++){
-				if(count_min == (j + "0") && count_sec == 0){
+	if(count_min < 91){
+		for(j=1; j<10; j++){
+			if(count_min == (j + "0") && count_sec == 0){
+				if(j == rmdNum){
+					eneTmp_score = 0;
+					for(i=0; i<enemyData.length; i++){
+						eneTmp_score += (((enemyData[i].playtime/60) * enemyData[i].score))*5
+					}
+					console.log("FEVER!!!!!!!!!!!!!!!!!!!!!!")
+					for(i=0; i<enemyData.length; i++){
+					 	enemyData[i].playtime = 0;
+					}
+				}else{
 					eneTmp_score = 0;
 					for(i=0; i<enemyData.length; i++){
 						eneTmp_score += ((enemyData[i].playtime/60) * enemyData[i].score)
-						$("#eneTmpScore").html(j + "0分経過、現在の敵合計スコアは" + eneTmp_score);
 					}
-					console.log("敵のスコアは" + eneTmp_score);
+					for(i=0; i<enemyData.length; i++){
+					 	enemyData[i].playtime = 0;
+					}
 				}
+				var numOpe = $.grep(scoreSet,
+				function(elem, index){
+					return (elem.plan == operation)
+				})
+				eneTmp_sum += (eneTmp_score*(numOpe[0]["Manchester"]))
+				tmpenePoint = Math.floor(eneTmp_sum/67.56)
+				$("#eneTmpScore").html(j + "0分経過、現在の敵合計スコアは" + eneTmp_sum);
 			}
+		}
 	}
+}
+
+function random(){
+	return Math.floor( Math.random() * 7 ) + 1;
 }
