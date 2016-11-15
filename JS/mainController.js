@@ -148,19 +148,33 @@ function countup(operation) {
 }
 
 function drawGraph(data1, data2){
+
 	var chart = c3.generate({
 						bindto: '#chart',
 					    data: {
 					        columns: [
-					            ["Leicester", Math.round(data1)],
-					            ["Manchester", Math.round(data2)],
+										["Manchester", Math.round(data2)],
+										["Leicester", Math.round(data1)],
+
+
 					        ],
-					        type : 'donut'
+					        type : 'donut',
+									colors: {
+					            Leicester: '#0000CC',
+					            Manchester: '#CC0000',
+					        },
+									order: null
 					    },
 					    donut: {
 					        title: "勝負の勢い"
 					    }
 					});
+
+
+
+	d3.selectAll('.c3-chart-arcs')
+		.selectAll('text')
+		.attr('fill', 'white');
 }
 
 function enemyAttack(count_min, count_sec, operation){
