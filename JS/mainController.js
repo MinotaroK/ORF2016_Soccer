@@ -98,7 +98,7 @@ function countup(operation) {
 		 	}
 		}
 		//タイマー処理
-		if(count_min > 90){
+		if(count_min == 90 && count_sec == 1){
 			$("#count_min").html(90);
 			$("#count_sec").html("0" + 0);
 			clearInterval(timerID);
@@ -111,15 +111,13 @@ function countup(operation) {
 			$("#count_min").html(("0" + count_min).slice(-2));
 			$("#count_sec").html(("0" + count_sec).slice(-2));
 			//10分ごとのスコア計算
-			for(j=1; j<9; j++){
+			for(j=1; j<10; j++){
 				if(count_min == (j + "0") && count_sec == 0){
 					tmp_score = 0;
 					for(i=0; i<playerData.length; i++){
 						tmp_score += ((playerData[i].playtime/60) * playerData[i][operation])
 					}
-					// console.log("味方のスコアは" + tmp_score); ///
-					// solveScore(operation, tmp_score, "Leicester", 59.58, tmp_sum)
-					for(i=0; i<enemyData.length; i++){
+					for(i=0; i<playerData.length; i++){
 					 	playerData[i].playtime = 0;
 					}
 					var numOpe = $.grep(scoreSet,
@@ -127,7 +125,7 @@ function countup(operation) {
 						return (elem.plan == operation)
 					})
 					tmp_sum += (tmp_score*(numOpe[0]["Leicester"]))
-					console.log(tmp_sum)
+					console.log(j + "回目")
 					tmpPoint = Math.floor(tmp_sum/59.58)
 					$("#tmpScore").html(j + "0分経過、現在の合計スコアは" + tmp_sum);
 				}
@@ -137,13 +135,13 @@ function countup(operation) {
 
 		$("#tmpPoint").html(tmpPoint + " - " + tmpenePoint)
 
-		for(j=1; j<10; j++){
-			if(count_min == (j + "0") && count_sec == 0){
-				// drawGraph(tmp_sum, eneTmp_sum)
-				console.log(tmp_sum)
-				console.log(eneTmp_sum)
-			}
-		}
+		// for(j=1; j<10; j++){
+		// 	if(count_min == (j + "0") && count_sec == 0){
+		// 		// drawGraph(tmp_sum, eneTmp_sum)
+		// 		console.log(tmp_sum)
+		// 		console.log(eneTmp_sum)
+		// 	}
+		// }
 	}
 }
 
@@ -153,10 +151,8 @@ function drawGraph(data1, data2){
 						bindto: '#chart',
 					    data: {
 					        columns: [
-										["Manchester", Math.round(data2)],
-										["Leicester", Math.round(data1)],
-
-
+										["Manchester", data2],
+										["Leicester", data1],
 					        ],
 					        type : 'donut',
 									colors: {
@@ -205,7 +201,7 @@ function enemyAttack(count_min, count_sec, operation){
 	 	}
 	}
 	//10分ごとのスコア計算
-	if(count_min < 91){
+	if(count_min < 91 && count_sec < 1){
 		for(j=1; j<10; j++){
 			if(count_min == (j + "0") && count_sec == 0){
 				if(j == rmdNum){
